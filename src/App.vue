@@ -9,13 +9,13 @@ import TheHeader from "./components/TheHeader.vue";
       <TheHeader />
 
       <nav>
-        <RouterLink class="nav-link" to="/">
+        <RouterLink title="Home" class="nav-link" to="/">
           <span>H</span>
           <span>o</span>
           <span>m</span>
           <span>e</span>
         </RouterLink>
-        <RouterLink class="nav-link" to="/redeem-code">
+        <RouterLink title="Redeem Code" class="nav-link" to="/redeem-code">
           <span>R</span>
           <span>e</span>
           <span>d</span>
