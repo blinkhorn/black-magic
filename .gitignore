@@ -32,7 +32,6 @@ BlackMagicMp3Api-cloudformation-template.json
 blackmagicPostConfirmation-cloudformation-template.json
 function-parameters.json
 parameters.json
-BlackMagicUsersTrigger074f98e6-cloudformation-template.json
 amplify-dependent-resources-ref.d.ts
 
 #amplify-do-not-edit-begin
