@@ -54,7 +54,7 @@ def build_presigned_url(user_id, bandcamp_code) -> str:
                 "Bucket": S3_BUCKET_NAME,
                 "Key": f"{user_id}/{bandcamp_code}.mp3"
             },
-            ExpiresIn=300
+            ExpiresIn=360
         )
         return presigned_url
     except OSError as err:
