@@ -7,7 +7,7 @@ import users.users as users
 import codes.codes as codes
 
 logger = Logger()
-cors_config = CORSConfig(allow_origin="https://dev.d1p8onlmfcuqol.amplifyapp.com", allow_credentials=True)
+cors_config = CORSConfig(allow_origin="https://prod.d2en0760w44xya.amplifyapp.com", allow_credentials=True)
 app = ApiGatewayResolver(cors=cors_config)
 
 app.include_router(mp3s.router, prefix="/api/mp3s")

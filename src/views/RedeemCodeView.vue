@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from 'vue';
-import { API } from 'aws-amplify';
 import router from '@/router';
-const apiName = 'blackmagicapigw';
+import { API } from 'aws-amplify';
+import { ref } from 'vue';
+
+
+const apiName = 'blackmagicapigwproduction';
 const getInit = {
     headers: { 'Content-Type': 'application/json' },
     response: true,
@@ -22,7 +24,7 @@ function verifyCode() {
 </script>
 <template>
     <label>Code from Bandcamp</label>
-    <input v-model="bandcampCode" placeholder="enter code">
+    <input v-model="bandcampCode" placeholder="ENTER CODE">
     <button @click="verifyCode">Redeem Code</button>
 </template>
 <style scoped>

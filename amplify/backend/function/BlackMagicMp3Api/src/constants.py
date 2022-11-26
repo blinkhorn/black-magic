@@ -1,3 +1,3 @@
 ITEMS = "Items"
 BANDCAMP_CODE_QUERY_PARAM = "bandcampCode"
-USER_ID_QUERY_PARAM = "userId"
+MP3_TO_DELETE = "mp3ToDelete"
