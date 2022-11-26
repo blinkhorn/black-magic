@@ -3,17 +3,24 @@ import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import { useRoute } from "vue-router";
 import { API } from 'aws-amplify';
-const apiName = 'blackmagicapigw';
+const apiName = 'blackmagicapigwproduction';
+
+
+const route = useRoute();
+const mp3ToDelete = route?.query?.mp3ToDelete; 
+const deletePath = '/api/mp3s';
+const presignedS3Url = route?.query?.presignedS3Url;
+
 const requestInit = {
     headers: { 'Content-Type': 'application/json' },
     response: true,
+    queryStringParameters: {
+        mp3ToDelete
+    }
 };
 
-const route = useRoute();
-const deletePath = decodeURIComponent(route?.query?.deletePath);
-const presignedS3Url = decodeURIComponent(route?.query?.presignedS3Url);
 function removeMp3FromS3() {
-    API.del(apiName, deletePath, requestInit)
+    API.get(apiName, deletePath, requestInit)
         .then(() => {
             // do nothing
         }).catch((error) => {
