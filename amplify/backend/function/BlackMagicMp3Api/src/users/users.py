@@ -1,5 +1,4 @@
 import os
-import json
 
 import boto3
 from aws_lambda_powertools import Logger
@@ -7,7 +6,6 @@ from aws_lambda_powertools.event_handler.api_gateway import Router
 from aws_lambda_powertools.event_handler.exceptions import (
     BadRequestError, NotFoundError)
 from boto3.dynamodb.conditions import Key
-from botocore import client
 
 
 import constants
@@ -46,7 +44,7 @@ def get_presigned_url(user_email: str) -> dict:
 
 
 def build_presigned_url(user_id, bandcamp_code) -> str:
-    s3 = boto3.client("s3", config=client.Config(signature_version="s3v4"))
+    s3 = boto3.client("s3", region_name="us-east-1", config=boto3.session.Config(signature_version="s3v4"))
     try:
         presigned_url = s3.generate_presigned_url(
             ClientMethod="get_object",
@@ -56,6 +54,7 @@ def build_presigned_url(user_id, bandcamp_code) -> str:
             },
             ExpiresIn=360
         )
+
         return presigned_url
     except OSError as err:
         logger.error(f"OS error: [ {err} ]")

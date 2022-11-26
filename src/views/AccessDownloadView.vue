@@ -5,7 +5,7 @@ import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 import { useRoute, useRouter } from "vue-router";
 import { API } from 'aws-amplify';
-const apiName = 'blackmagicapigw';
+const apiName = 'blackmagicapigwproduction';
 
 const $userEmail = ref(null);
 const route = useRoute();
@@ -18,20 +18,20 @@ const requestInit = {
         bandcampCode
     }
 };
+
 function getPresignedS3Url() {
     const getPath = `/api/users/${$userEmail.value.innerHTML}`;
     API.get(apiName, getPath, requestInit).then((response) => {
         const { mp3Url, mp3Name, userId } = response.data;
-        const deletePath = `/api/mp3s/${userId}/${mp3Name}.mp3`;
-
-        sendToDownload(encodeURIComponent(mp3Url), encodeURIComponent(deletePath));
+        const mp3ToDelete = `${userId}/${mp3Name}`;
+        sendToDownload(encodeURIComponent(mp3Url), encodeURIComponent(mp3ToDelete));
     }).catch((error) => {
         console.error(error);
         router.push('/n0-down1oad-4-u');
     });
 }
-function sendToDownload(mp3Url, deletePath) {
-    router.push(`/d0wnload-mvz1k?deletePath=${deletePath}&presignedS3Url=${mp3Url}`)
+function sendToDownload(mp3Url, mp3ToDelete) {
+    router.push(`/d0wnload-mvz1k?mp3ToDelete=${mp3ToDelete}&presignedS3Url=${mp3Url}`)
 }
 </script>
 <template>
