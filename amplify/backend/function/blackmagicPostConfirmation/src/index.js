@@ -81,12 +81,12 @@ async function listMp3sToDistribute() {
       TableName: process.env.CODES_TABLE_NAME
     };
     const mp3sToDistribute = [];
-    let items;
+    let dynamoDbScanResponse;
     do {
-      items = await dynamoDbDocumentClient.scan(codesTableParams).promise();
-      items.Items.forEach((item) => mp3sToDistribute.push(item.code));
-      codesTableParams.ExclusiveStartKey = items.LastEvaluatedKey;
-    } while (typeof items.LastEvaluatedKey !== 'undefined');
+      dynamoDbScanResponse = await dynamoDbDocumentClient.scan(codesTableParams).promise();
+      dynamoDbScanResponse.Items.forEach((item) => mp3sToDistribute.push(item.code));
+      codesTableParams.ExclusiveStartKey = dynamoDbScanResponse.LastEvaluatedKey;
+    } while (typeof dynamoDbScanResponse.LastEvaluatedKey !== 'undefined');
 
     return mp3sToDistribute;
   } catch (err) {

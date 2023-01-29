@@ -1,12 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import TheHeader from "./components/TheHeader.vue";
+import AppHeader from "./components/AppHeader.vue";
 </script>
   
 <template>
   <header>
     <div class="wrapper">
-      <TheHeader />
+      <AppHeader />
 
       <nav>
         <RouterLink title="Home" class="nav-link" to="/">

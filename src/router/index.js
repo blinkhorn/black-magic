@@ -18,7 +18,7 @@ const router = createRouter({
     },
     {
       path: "/n0-down1oad-4-u",
-      component: () => import("../views/NoDownloadForYouVue.vue"),
+      component: () => import("../views/NoDownloadForYouView.vue"),
     },
     {
       path: "/d0wnload-mvz1k",

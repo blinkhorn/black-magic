@@ -28,13 +28,13 @@ def get_presigned_url(user_email: str) -> dict:
     if not bandcamp_code:
         raise BadRequestError(f"{constants.BANDCAMP_CODE_QUERY_PARAM} is a required query parameter.")
     logger.info(f"Fetching user with email [ {user_email} ]")
-    response = table.query(
+    user_query_response = table.query(
         KeyConditionExpression=Key("email").eq(user_email)
     )
-    if constants.ITEMS not in response or not response[constants.ITEMS]:
+    if constants.ITEMS not in user_query_response or not user_query_response[constants.ITEMS]:
         raise NotFoundError(
             f"[ {user_email} ] user email not found. Please try again with a valid email that was been verified with Black Magic.")
-    user_id = response.get("Items")[0].get("id")
+    user_id = user_query_response.get("Items")[0].get("id")
     presigned_url = build_presigned_url(user_id, bandcamp_code)
     return {
         "mp3Url": presigned_url,
