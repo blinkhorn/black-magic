@@ -1,7 +1,7 @@
-const { DynamoDBDocument } = require('@aws-sdk/lib-dynamodb');
-const { DynamoDB } = require('@aws-sdk/client-dynamodb');
-const { S3 } = require('@aws-sdk/client-s3');
-const { v4: uuidv4 } = require('uuid');
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
+import { DynamoDB } from '@aws-sdk/client-dynamodb';
+import { S3 } from '@aws-sdk/client-s3';
+import { v4 as uuidv4 } from 'uuid';
 
 const dynamoDbDocumentClient = DynamoDBDocument.from(new DynamoDB());
 const s3 = new S3();
