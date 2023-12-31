@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 const dynamoDbDocumentClient = DynamoDBDocument.from(new DynamoDB());
 const s3 = new S3();
 
-exports.handler = async (event, context, callback) => {
+export const handler = async (event, context, callback) => {
   try {
     if (event.request.userAttributes['cognito:user_status'] === 'CONFIRMED') {
       const userId = await createUser(event.request.userAttributes.email);
