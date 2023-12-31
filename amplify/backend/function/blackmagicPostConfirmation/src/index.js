@@ -1,8 +1,10 @@
-const AWS = require('aws-sdk');
+const { DynamoDBDocument } = require('@aws-sdk/lib-dynamodb');
+const { DynamoDB } = require('@aws-sdk/client-dynamodb');
+const { S3 } = require('@aws-sdk/client-s3');
 const { v4: uuidv4 } = require('uuid');
 
-const dynamoDbDocumentClient = new AWS.DynamoDB.DocumentClient();
-const s3 = new AWS.S3();
+const dynamoDbDocumentClient = DynamoDBDocument.from(new DynamoDB());
+const s3 = new S3();
 
 exports.handler = async (event, context, callback) => {
   try {
@@ -31,7 +33,7 @@ async function createUser(email) {
         id: userId
       }
     };
-    await dynamoDbDocumentClient.put(usersTablePutParams).promise();
+    await dynamoDbDocumentClient.put(usersTablePutParams);
     return userId;
   } catch (err) {
     return err;
@@ -45,7 +47,7 @@ async function createUserFolder(userId) {
       Key: `${userId}/`
     };
 
-    await s3.putObject(createUserFolderParams).promise();
+    await s3.putObject(createUserFolderParams);
   } catch (err) {
     return err;
   }
@@ -67,8 +69,7 @@ async function distributeExistingMp3sToUser(userId) {
           } else {
             console.log(`Success: ${copyData}`);
           }
-        })
-        .promise();
+        });
     }
   } catch (err) {
     return err;
@@ -83,7 +84,7 @@ async function listMp3sToDistribute() {
     const mp3sToDistribute = [];
     let dynamoDbScanResponse;
     do {
-      dynamoDbScanResponse = await dynamoDbDocumentClient.scan(codesTableParams).promise();
+      dynamoDbScanResponse = await dynamoDbDocumentClient.scan(codesTableParams);
       dynamoDbScanResponse.Items.forEach((item) => mp3sToDistribute.push(item.code));
       codesTableParams.ExclusiveStartKey = dynamoDbScanResponse.LastEvaluatedKey;
     } while (typeof dynamoDbScanResponse.LastEvaluatedKey !== 'undefined');
