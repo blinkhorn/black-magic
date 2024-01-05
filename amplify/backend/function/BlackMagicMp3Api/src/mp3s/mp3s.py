@@ -9,9 +9,9 @@ from aws_lambda_powertools import Logger
 from aws_lambda_powertools.event_handler.api_gateway import Router
 from aws_lambda_powertools.event_handler.exceptions import BadRequestError
 
-S3_BUCKET_NAME = os.environ["S3_BUCKET_NAME"]
+S3_USER_MP3_BUCKET_NAME = os.environ["S3_USER_MP3_BUCKET_NAME"]
 
-logger = Logger(child=True)
+logger = Logger(child=True) 
 router = Router()
 
 
@@ -31,7 +31,7 @@ def delete_mp3():
         client = boto3.client("s3", region_name="us-east-1")
         time.sleep(360)
         logger.info(f"Removing mp3 with key {mp3_to_delete}.mp3")
-        client.delete_object(Bucket=S3_BUCKET_NAME, Key=f"{mp3_to_delete}.mp3")
+        client.delete_object(Bucket=S3_USER_MP3_BUCKET_NAME, Key=f"{mp3_to_delete}.mp3")
         response = {
             'statusCode': 200,
             'body': f"{mp3_to_delete} has been deleted."
