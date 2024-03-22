@@ -38,7 +38,7 @@ button {
 }
 
 .no-downloads-for-you {
-    margin: 1.3rem auto;
+    margin: 1.3rem 0;
 }
 
 .sign-out {
